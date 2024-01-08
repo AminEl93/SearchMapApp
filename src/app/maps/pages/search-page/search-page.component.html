@@ -1,0 +1,6 @@
+<!-- Carga de espera mientras no está lista la geolocalización del usuario -->
+<app-loading *ngIf="!isUserLocationReady; else mapReady"></app-loading>
+
+<ng-template #mapReady>
+    <app-search-view></app-search-view>
+</ng-template>
