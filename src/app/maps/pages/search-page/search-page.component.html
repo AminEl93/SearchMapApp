@@ -4,4 +4,13 @@
 <ng-template #mapReady>
     <!-- Mapa -->
     <app-search-view></app-search-view>
+
+    <!-- Botón para ir a la ubicación actual del usuario -->
+    <button class="btn btn-primary" (click)="goToMyLocation()">
+        <img class="location-logo" src="../../../../assets/icons/location.svg" alt="location"/>
+        Mi ubicación
+    </button>
 </ng-template>
+
+<!-- Logo de Angular -->
+<img class="angular-logo" src="../../../../assets/icons/angular-logo.svg" width="60" alt="Angular Logo"/>
