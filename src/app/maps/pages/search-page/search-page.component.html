@@ -2,5 +2,6 @@
 <app-loading *ngIf="!isUserLocationReady; else mapReady"></app-loading>
 
 <ng-template #mapReady>
+    <!-- Mapa -->
     <app-search-view></app-search-view>
 </ng-template>

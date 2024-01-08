@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Map } from 'mapbox-gl';
 import { PlacesService } from '../../services';
 
 @Component({
@@ -7,11 +8,19 @@ import { PlacesService } from '../../services';
     styleUrls: ['./search-view.component.css']
 })
 
-export class SearchViewComponent implements OnInit{
+export class SearchViewComponent implements AfterViewInit {
 
-    constructor( private _placesService: PlacesService) { }
+    @ViewChild('mapDiv') mapDivElement!: ElementRef;
     
-    ngOnInit(): void {
-        console.log(this._placesService.useLocation);
+    constructor(private _placesService: PlacesService) { }
+    
+    ngAfterViewInit(): void {
+        if (!this._placesService.userLocation) throw Error('No hay geolocalización');
+        const map = new Map({
+            container: this.mapDivElement.nativeElement,
+            style: 'mapbox://styles/mapbox/streets-v12', // URL de estilos del mapa
+            center: this._placesService.userLocation, // Ubicación actual del usuario
+            zoom: 14 // Zoom inicial
+        });
     }
 }
