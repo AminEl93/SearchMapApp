@@ -5,3 +5,9 @@
 p {
     font-size: 12px;
 }
+
+.list-group {
+    max-height: 490px;
+    overflow:scroll;
+    -webkit-overflow-scrolling: touch;
+}

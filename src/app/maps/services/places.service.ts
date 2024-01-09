@@ -54,7 +54,6 @@ export class PlacesService {
                 proximity: this.userLocation.join(',')
             }
         }).subscribe(resp => {
-            console.log(resp.features);
             this.isLoadingPlaces = false;
             this.places = resp.features;      
         });
