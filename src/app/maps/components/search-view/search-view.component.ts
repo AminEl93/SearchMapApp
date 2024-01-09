@@ -31,7 +31,7 @@ export class SearchViewComponent implements AfterViewInit {
         );
     
         // Marcador con la ubicación actual del usuario
-        new Marker({ color: 'blue' }).setLngLat(this._placesService.userLocation).setPopup(popup).addTo(map)
+        new Marker({ color: 'red' }).setLngLat(this._placesService.userLocation).setPopup(popup).addTo(map)
         
         // Inicializar el mapa y establecerlo en el servicio
         this._mapService.setMap(map); 
