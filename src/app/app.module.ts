@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { MapsModule } from './maps/maps.module';
@@ -8,7 +9,8 @@ import { MapsModule } from './maps/maps.module';
     declarations: [AppComponent],
     imports: [
         BrowserModule,
-        MapsModule
+        MapsModule,
+        HttpClientModule
     ],
     providers: [],
     bootstrap: [AppComponent]
