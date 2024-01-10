@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { LngLatBounds, LngLatLike, Map, Marker, Popup } from 'mapbox-gl';
 import { Feature } from '../interfaces/places';
+import { DirectionsApiClient } from '../api';
+import { DirectionsResponse, Route } from '../interfaces/directions';
 
 @Injectable({
     providedIn: 'root'
@@ -14,6 +16,8 @@ export class MapService {
     get isMapReady() {
         return !!this.map;
     }
+
+    constructor(private _directionsApi: DirectionsApiClient) { }
 
     // Establecer el mapa de manera global
     setMap(map: Map) {
@@ -54,5 +58,24 @@ export class MapService {
         newMarkers.forEach( marker => bounds.extend(marker.getLngLat()) );
         bounds.extend(userLocation);    
         this.map.fitBounds(bounds, { padding: 200 });    
-    }    
+    }
+    
+    // Obtener la ruta entre 2 puntos en el mapa. En este caso, entre la ubicación del usuario y otro punto
+    getRouteBetweenPoints(start: [number, number], end: [number, number]) {
+        this._directionsApi.get<DirectionsResponse>(`/${start.join(',')};${end.join(',')}`)
+            .subscribe( resp => this.drawPolyline(resp.routes[0]) );    
+    }
+
+    // Dibujar la Polyline (ruta entre 2 puntos)
+    private drawPolyline(route: Route) {
+        console.log({ kms: route.distance / 1000, duration: route.duration / 60 });
+        if (!this.map) throw Error('El mapa no está inicializado!');
+    
+        const coords = route.geometry.coordinates;    
+        const bounds = new LngLatBounds();
+        coords.forEach(([ lng, lat ]) => {
+            bounds.extend([ lng, lat ]);
+        });    
+        this.map?.fitBounds(bounds, { padding: 200 });
+    }
 }

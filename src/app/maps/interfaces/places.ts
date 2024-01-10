@@ -44,7 +44,6 @@ export enum Wikidata {
     Q5705 = "Q5705",    // Cataluña
     Q81949 = "Q81949",  // Provincia de Barcelona
     Q1492 = "Q1492",    // Barcelona
-    Q13855 = "Q13855",  // Vic
 }
 
 export interface Geometry {

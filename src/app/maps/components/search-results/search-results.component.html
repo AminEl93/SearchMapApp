@@ -14,7 +14,8 @@
         <p>{{ place.place_name }}</p>
         <button
             class="btn btn-sm"
-            [ngClass]="(place.id === selectedId) ? 'btn-outline-light':'btn-outline-primary'"
+            [ngClass]="(place.id === selectedId) ? 'btn-warning':'btn-outline-primary'"
+            (click)="getDirections(place)"
         >
             Ruta
         </button>
