@@ -29,9 +29,10 @@ export class SearchResultsComponent {
     }
 
     getDirections(place: Feature) {
-        if (!this._placesService.userLocation) throw Error('No hay geolocalización');    
+        if (!this._placesService.userLocation) throw Error('No hay geolocalización');
+        this._placesService.hidePlaces();
         const start = this._placesService.userLocation;
-        const end = place.center as [number, number];     
+        const end = place.center as [number, number];
         this._mapService.getRouteBetweenPoints(start, end);
     }
 }

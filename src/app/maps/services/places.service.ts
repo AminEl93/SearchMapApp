@@ -60,4 +60,9 @@ export class PlacesService {
             this._mapService.createMarkersFromPlaces(this.places, this.userLocation!);  
         });
     }
+
+    // Ocultar el menú de los lugares una vez se clica en una ruta concreta
+    hidePlaces() {
+        this.places = [];
+    }
 }
