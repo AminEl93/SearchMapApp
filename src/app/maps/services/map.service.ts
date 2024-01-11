@@ -41,9 +41,9 @@ export class MapService {
     
         for (const place of places) {
             const [lng, lat] = place.center;
-            const popup = new Popup()
+            const popup = new Popup({closeOnMove: true})
                 .setHTML(
-                    `<h6>${ place.text }</h6>
+                    `<h6 class="fw-bold">${ place.text }</h6>
                     <span>${ place.place_name }</span>`
                 );    
             const newMarker = new Marker().setLngLat([lng, lat]).setPopup(popup).addTo(this.map);    
@@ -112,6 +112,29 @@ export class MapService {
                 'line-color': 'black',
                 'line-width': 3
             }
-        });  
+        });
+
+        // Popup al pasar por encima de la polyline
+        const popup = new Popup({ closeButton: false, closeOnClick: false })
+            .setHTML(
+                `<span class="d-block">
+                    Distancia: <b>${ Math.round(route.distance / 1000) } kilómetros</b>
+                 </span>
+                 <span>
+                    Duración: <b>${ Math.round(route.duration / 60) } minutos
+                                (${ Math.round(route.duration / 60 / 60) } horas)</b>
+                 </span>`
+            );
+   
+        this.map.on('mouseover', 'RouteString', (event) => {
+            this.map!.getCanvas().style.cursor = 'pointer';
+            const coordinates = event.lngLat;
+            popup.setLngLat(coordinates).addTo(this.map!);
+        });
+   
+        this.map.on( 'mouseleave', 'RouteString', () => {
+            this.map!.getCanvas().style.cursor = '';
+            popup.remove();
+        });
     }
 }
