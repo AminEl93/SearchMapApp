@@ -97,7 +97,7 @@ export class MapService {
         if (this.map.getLayer('RouteString')) {
             this.map.removeLayer('RouteString');
             this.map.removeSource('RouteString');
-        }    
+        }
     
         this.map.addSource('RouteString', sourceData);    
         this.map.addLayer({
@@ -137,4 +137,13 @@ export class MapService {
             popup.remove();
         });
     }
+
+    // Borrar la polyline una vez se borra el input de búsqueda
+    clearPolyline() {
+        if (!this.map) throw Error('Mapa no inicializado');     
+        if (this.map.getLayer('RouteString')) {
+            this.map.removeLayer('RouteString');
+            this.map.removeSource('RouteString');
+        }
+    } 
 }

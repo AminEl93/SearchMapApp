@@ -41,6 +41,8 @@ export class PlacesService {
 
     // Obtener los lugares buscados a partir de la petición HTTP al backend
     getPlacesByQuery(query: string = '') {
+        this._mapService.clearPolyline();
+
         if (query.length === 0) {
             this.isLoadingPlaces = false;
             this.places = [];
@@ -57,7 +59,7 @@ export class PlacesService {
         }).subscribe(resp => {
             this.isLoadingPlaces = false;
             this.places = resp.features;
-            this._mapService.createMarkersFromPlaces(this.places, this.userLocation!);  
+            this._mapService.createMarkersFromPlaces(this.places, this.userLocation!);
         });
     }
 
